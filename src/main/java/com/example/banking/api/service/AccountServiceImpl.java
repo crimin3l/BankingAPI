@@ -4,6 +4,7 @@ import com.example.banking.api.domain.Customer;
 import com.example.banking.api.domain.Transaction;
 import com.example.banking.api.repository.AccountRepository;
 import com.example.banking.api.repository.CustomerRepository;
+import com.example.banking.api.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class AccountServiceImpl implements AccountService {
     private CustomerRepository customerRepo;
     private AccountRepository accountRepo;
+    private TransactionRepository transactionRepo;
 
     @Autowired
     public AccountServiceImpl(
@@ -32,12 +34,14 @@ public class AccountServiceImpl implements AccountService {
         if (customerOpt.isPresent()) {
             customer = customerOpt.get();
 
-            // TODO make a transaction
-            Transaction transaction = null;
-
             Account newAccount = new Account(customer, initialCredit, initialCredit);
             accountRepo.save(newAccount);
             log.info("Account created: {}", newAccount);
+
+            Transaction newTransaction = new Transaction(initialCredit, newAccount);
+            transactionRepo.save(newTransaction);
+            log.info("Transaction created: {}", newTransaction);
+
             return newAccount;
         } else {
             log.info("Creating account failed due to non existent customerID");
