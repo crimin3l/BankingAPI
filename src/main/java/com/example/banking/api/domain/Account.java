@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class Account {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ACCOUNT_ID")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

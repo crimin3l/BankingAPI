@@ -38,10 +38,6 @@ public class AccountServiceImpl implements AccountService {
             accountRepo.save(newAccount);
             log.info("Account created: {}", newAccount);
 
-            Transaction newTransaction = new Transaction(initialCredit, newAccount);
-            transactionRepo.save(newTransaction);
-            log.info("Transaction created: {}", newTransaction);
-
             return newAccount;
         } else {
             log.info("Creating account failed due to non existent customerID");

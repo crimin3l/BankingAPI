@@ -31,9 +31,8 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
-    public Transaction createNewTransaction(Long accountId, double amount) {
+    public Transaction createNewTransaction(final Long accountId,final double amount) {
         Optional<Account> accountOpt = accountRepo.findById(accountId);
-
         Account account = null;
         if (accountOpt.isPresent()) {
             account = accountOpt.get();

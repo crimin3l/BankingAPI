@@ -14,7 +14,7 @@ import lombok.ToString;
 public class Transaction {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TRANSACTION_ID")
     private Long id;
 
