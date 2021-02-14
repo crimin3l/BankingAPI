@@ -22,30 +22,21 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping("/banking-api")
-public class AccountController {
+public class UserAccountController {
 
     private final AccountService accountService;
     private final AccountRepository accountRepo;
-
     private final TransactionService transactionService;
-    private final TransactionRepository transactionRepo;
-    private HttpHeaders headers;
-    private JSONObject transactionJsonObject;
 
     @Autowired
-    public AccountController(
+    public UserAccountController(
             final AccountService accountService,
             final AccountRepository accountRepo,
-            final TransactionService transactionService,
-            final TransactionRepository transactionRepo) {
+            final TransactionService transactionService) {
         this.accountService = accountService;
         this.accountRepo = accountRepo;
         this.transactionService = transactionService;
-        this.transactionRepo = transactionRepo;
     }
-
-
-
 
     @GetMapping("/getAccountById/{accountId}")
     ResponseEntity<Account> getAccountById(@RequestParam("accountId") Long accountId) {
@@ -57,12 +48,11 @@ public class AccountController {
     }
 
     @PostMapping("/createNewAccout")
-    ResponseEntity<Account> createNewAccout(@RequestBody AccountNewDao dao) throws IOException, JSONException {
+    ResponseEntity<Account> createNewAccout(@RequestBody AccountNewDao dao) {
         Account newAccount = accountService.createNewAccoutWithInitialCredit(dao.getCustomerId(), dao.getInitialCredit());
         if(dao.getInitialCredit() != 0) {
             transactionService.createNewTransaction(newAccount.getId(), dao.getInitialCredit());
         }
         return ResponseEntity.ok(newAccount);
     }
-
 }
