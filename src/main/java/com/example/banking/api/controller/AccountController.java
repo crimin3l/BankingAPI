@@ -1,17 +1,25 @@
 package com.example.banking.api.controller;
 
 import com.example.banking.api.domain.Account;
+import com.example.banking.api.domain.Transaction;
 import com.example.banking.api.domain.dao.AccountNewDao;
 import com.example.banking.api.repository.AccountRepository;
 import com.example.banking.api.repository.TransactionRepository;
 import com.example.banking.api.service.AccountService;
 import com.example.banking.api.service.TransactionService;
+import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.client.RestTemplate;
+import java.io.IOException;
+import java.net.URI;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/banking-api")
 public class AccountController {
@@ -21,6 +29,8 @@ public class AccountController {
 
     private final TransactionService transactionService;
     private final TransactionRepository transactionRepo;
+    private HttpHeaders headers;
+    private JSONObject transactionJsonObject;
 
     @Autowired
     public AccountController(
@@ -34,6 +44,9 @@ public class AccountController {
         this.transactionRepo = transactionRepo;
     }
 
+
+
+
     @GetMapping("/getAccountById/{accountId}")
     ResponseEntity<Account> getAccountById(@RequestParam("accountId") Long accountId) {
         Optional<Account> accountOpt = accountRepo.findById(accountId);
@@ -44,7 +57,7 @@ public class AccountController {
     }
 
     @PostMapping("/createNewAccout")
-    ResponseEntity<Account> createNewAccout(@RequestBody AccountNewDao dao) {
+    ResponseEntity<Account> createNewAccout(@RequestBody AccountNewDao dao) throws IOException, JSONException {
         Account newAccount = accountService.createNewAccoutWithInitialCredit(dao.getCustomerId(), dao.getInitialCredit());
         if(dao.getInitialCredit() != 0) {
             transactionService.createNewTransaction(newAccount.getId(), dao.getInitialCredit());
