@@ -1,7 +1,6 @@
 package com.example.banking.api.service;
 
 import com.example.banking.api.domain.Account;
-import com.example.banking.api.domain.Customer;
 import com.example.banking.api.domain.Transaction;
 import com.example.banking.api.repository.AccountRepository;
 import com.example.banking.api.repository.CustomerRepository;
@@ -28,7 +27,6 @@ public class TransactionServiceImpl implements TransactionService {
         this.transactionRepo = transactionRepo;
         this.accountRepo = accountRepo;
     }
-
 
     @Override
     public Transaction createNewTransaction(final Long accountId,final double amount) {

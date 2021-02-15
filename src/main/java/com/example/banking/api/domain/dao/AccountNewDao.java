@@ -1,8 +1,8 @@
 package com.example.banking.api.domain.dao;
 
-import lombok.Getter;
+import lombok.*;
 
-@Getter
+@Data
 public class AccountNewDao {
     Long customerId;
     double initialCredit;

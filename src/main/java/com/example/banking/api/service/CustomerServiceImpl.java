@@ -1,6 +1,5 @@
 package com.example.banking.api.service;
 
-import com.example.banking.api.domain.Account;
 import com.example.banking.api.domain.Customer;
 import com.example.banking.api.repository.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +38,6 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = null;
         if (customerOpt.isPresent()) {
             customer = customerOpt.get();
-
         }
         return customer;
     }

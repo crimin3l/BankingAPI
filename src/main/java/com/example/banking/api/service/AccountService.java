@@ -11,6 +11,5 @@ public interface AccountService {
     List<Account> getAccountsByBalance(final Double balance);
     void deleteAccountById(final Long accountID);
     void deleteAllAccountsByUserId(final Long customerId);
-
     List<Account> getAccountsByCustomerId(Long customerId);
 }

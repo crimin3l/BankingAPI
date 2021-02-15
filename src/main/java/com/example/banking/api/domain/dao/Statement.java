@@ -1,12 +1,11 @@
-package com.example.banking.api.domain;
+package com.example.banking.api.domain.dao;
 
+import com.example.banking.api.domain.Transaction;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 @RequiredArgsConstructor
 @Getter
 @Setter

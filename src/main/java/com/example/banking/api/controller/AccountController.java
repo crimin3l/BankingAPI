@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
 @RestController
 @RequestMapping("/api/v1/account")
 public class AccountController {
@@ -22,7 +21,6 @@ public class AccountController {
             final AccountService accountService) {
         this.accountService = accountService;
     }
-
 
     @PostMapping("/createNewAccount")
     ResponseEntity<Account> createNewAccount(@RequestBody AccountNewDao dao) {

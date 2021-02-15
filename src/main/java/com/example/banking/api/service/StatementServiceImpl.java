@@ -2,8 +2,8 @@ package com.example.banking.api.service;
 
 import com.example.banking.api.domain.Account;
 import com.example.banking.api.domain.Customer;
-import com.example.banking.api.domain.Statement;
 import com.example.banking.api.domain.Transaction;
+import com.example.banking.api.domain.dao.Statement;
 import com.example.banking.api.repository.AccountRepository;
 import com.example.banking.api.repository.CustomerRepository;
 import com.example.banking.api.repository.TransactionRepository;

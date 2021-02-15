@@ -2,8 +2,6 @@ package com.example.banking.api.repository;
 
 import com.example.banking.api.domain.Account;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 import java.util.Optional;
 

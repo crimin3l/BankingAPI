@@ -6,24 +6,17 @@ import com.example.banking.api.repository.AccountRepository;
 import com.example.banking.api.repository.CustomerRepository;
 import com.example.banking.api.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Slf4j
 public class AccountServiceImpl implements AccountService {
-    private CustomerRepository customerRepo;
-    private AccountRepository accountRepo;
-    private TransactionRepository transactionRepo;
-    @PersistenceContext
-    private EntityManager em;
+    private final CustomerRepository customerRepo;
+    private final AccountRepository accountRepo;
+    private final TransactionRepository transactionRepo;
 
     @Autowired
     public AccountServiceImpl(
@@ -44,7 +37,6 @@ public class AccountServiceImpl implements AccountService {
         }
         return account;
     }
-
 
     @Override
     public Account createNewAccountWithInitialCredit(final Long customerId, final double initialCredit) {
@@ -113,7 +105,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> getAccountsByCustomerId(final Long customerId) {
-        log.error("!!!!!!!!!!!!!!!!!!!!!!");
         List<Account> accountList = accountRepo.findByCustomerId(customerId);
         return accountList;
     };

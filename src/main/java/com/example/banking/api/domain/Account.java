@@ -1,14 +1,10 @@
 package com.example.banking.api.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-
+import lombok.*;
 import javax.persistence.*;
 
-@RequiredArgsConstructor
 @Getter
+@Setter
 @ToString
 @EqualsAndHashCode
 @Entity
@@ -18,21 +14,20 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ACCOUNT_ID")
-    private Long id;
+    private long id;
 
 
-    private Long customerId;
+    private long customerId;
 
-    private final double initialCredit;
-    private Double balance;
+    private double initialCredit;
+    private double balance;
 
     // Empty constructor for JSON/JPA
     public Account() {
-        this(null, 0L, 0D);
+        this(0L, 0L, 0D);
     }
 
-    public Account(Long customerId, double initialCredit, Double balance) {
-        this.id = id;
+    public Account(Long customerId, double initialCredit, double balance) {
         this.customerId = customerId;
         this.initialCredit = initialCredit;
         this.balance = balance;

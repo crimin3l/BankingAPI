@@ -1,6 +1,5 @@
 package com.example.banking.api.repository;
 
-import com.example.banking.api.domain.Account;
 import com.example.banking.api.domain.Transaction;
 
 import java.util.List;
