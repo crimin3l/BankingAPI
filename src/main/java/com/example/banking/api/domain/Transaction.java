@@ -1,13 +1,12 @@
 package com.example.banking.api.domain;
 
 import javax.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+
+import lombok.*;
 
 @RequiredArgsConstructor
 @Getter
+@Setter
 @ToString
 @EqualsAndHashCode
 @Entity

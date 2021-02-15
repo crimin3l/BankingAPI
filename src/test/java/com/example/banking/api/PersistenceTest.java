@@ -45,9 +45,9 @@ public class PersistenceTest {
 
         entityManager.persist(new Customer("generatedString1", "generatedString2" ));
         List<Customer> findCustomerByNameAndSurname = customerRepo.findByNameAndSurname("generatedString1", "generatedString2");
-        entityManager.persist(new Account(new Customer("generatedString3", "generatedString4" ),generatedDouble2, generatedDouble2 ));
+        entityManager.persist(new Account(new Customer("generatedString3", "generatedString4" ).getId(),generatedDouble2, generatedDouble2));
         Optional<Account> findAccountById = accountRepo.findById(1L);
-        entityManager.persist(new Transaction(generatedDouble1, new Account(new Customer("generatedString5", "generatedString6" ),generatedDouble2, generatedDouble2 )));
+        entityManager.persist(new Transaction(generatedDouble1, new Account(new Customer("generatedString5", "generatedString6" ).getId(),generatedDouble2, generatedDouble2)));
         Optional<Transaction> findTransactionById = transactionRepo.findById(1L);
         assert findCustomerByNameAndSurname.size() >= 1 && findAccountById.get().getInitialCredit() == generatedDouble2 && findTransactionById.get().getAmount() == generatedDouble1;
     }

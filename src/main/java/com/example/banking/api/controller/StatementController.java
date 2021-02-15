@@ -24,14 +24,9 @@ public class StatementController {
         this.customerService = customerService;
         this.statementService = statementService;
     }
-    //TODO: remove getCustomerById method since it is not required in API specifications
-    @GetMapping("/getCustomerById/{customerId}")
-    ResponseEntity<Customer> getCustomerById(@RequestParam("customerId") Long customerId) {
-        return ResponseEntity.ok(customerService.getCustomerById(customerId));
-    }
 
-    @GetMapping("/getStatementByCustomerId/{customerId}")
-    ResponseEntity<Statement> getCustomerDetailsById(@RequestParam("customerId") Long customerId) {
+    @GetMapping("/getStatementByCustomerId")
+    ResponseEntity<Statement> getStatementByCustomerId(@RequestParam("customerId") Long customerId) {
         return ResponseEntity.ok(statementService.getStatementByCustomerId(customerId));
     }
 

@@ -20,16 +20,21 @@ public class Account {
     @Column(name = "ACCOUNT_ID")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "CUSTOMER_ID")
-    private final Customer customerId;
+
+    private Long customerId;
 
     private final double initialCredit;
-    private final double balance;
+    private Double balance;
 
     // Empty constructor for JSON/JPA
     public Account() {
-        this(null, 0D, 0D);
+        this(null, 0L, 0D);
     }
 
+    public Account(Long customerId, double initialCredit, Double balance) {
+        this.id = id;
+        this.customerId = customerId;
+        this.initialCredit = initialCredit;
+        this.balance = balance;
+    }
 }

@@ -23,10 +23,6 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/getAccountById/{accountId}")
-    ResponseEntity<Account> getAccountById(@RequestParam("accountId") Long accountId) {
-        return ResponseEntity.ok(accountService.getAccountById(accountId));
-    }
 
     @PostMapping("/createNewAccount")
     ResponseEntity<Account> createNewAccount(@RequestBody AccountNewDao dao) {

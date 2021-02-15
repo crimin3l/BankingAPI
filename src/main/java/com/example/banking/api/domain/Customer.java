@@ -24,8 +24,8 @@ public class Customer {
     private final String name;
     private final String surname;
 
-    // Empty constructor for JSON/JPA
-    public Customer() {
+// Empty constructor for JSON/JPA
+public Customer() {
     this("", "");
 }
 }

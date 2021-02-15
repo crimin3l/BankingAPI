@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +22,8 @@ public class AccountServiceImpl implements AccountService {
     private CustomerRepository customerRepo;
     private AccountRepository accountRepo;
     private TransactionRepository transactionRepo;
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
     public AccountServiceImpl(
@@ -40,24 +45,21 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
+
     @Override
     public Account createNewAccountWithInitialCredit(final Long customerId, final double initialCredit) {
         Optional<Customer> customerOpt = customerRepo.findById(customerId);
         Customer customer = null;
         if (customerOpt.isPresent()) {
             customer = customerOpt.get();
-
-            Account newAccount = new Account(customer, initialCredit, initialCredit);
+            Account newAccount = new Account(customer.getId(), initialCredit, initialCredit);
             accountRepo.save(newAccount);
             log.info("Account created: {}", newAccount);
-
             if(initialCredit != 0) {
-                Transaction newTransaction = new Transaction(customerId, newAccount);
+                Transaction newTransaction = new Transaction(initialCredit, newAccount);
                 transactionRepo.save(newTransaction);
             }
-
             return newAccount;
-
         } else {
             log.info("Creating account failed due to non existent customerID");
             return null;
@@ -70,7 +72,7 @@ public class AccountServiceImpl implements AccountService {
         Customer customer = null;
         if (customerOpt.isPresent()) {
             customer = customerOpt.get();
-            Account newAccount = new Account(customer, 0, 0);
+            Account newAccount = new Account(customer.getId(), 0D, 0D);
             accountRepo.save(newAccount);
             log.info("Account created: {}", newAccount);
             return newAccount;
@@ -102,4 +104,17 @@ public class AccountServiceImpl implements AccountService {
                     accountRepo.deleteById(a.getId());
                 });
     }
+
+    @Override
+    public List<Account> getAccountsByBalance(final Double balance) {
+        List<Account> accountList = accountRepo.findByBalance(balance);
+        return accountList;
+    };
+
+    @Override
+    public List<Account> getAccountsByCustomerId(final Long customerId) {
+        log.error("!!!!!!!!!!!!!!!!!!!!!!");
+        List<Account> accountList = accountRepo.findByCustomerId(customerId);
+        return accountList;
+    };
 }
