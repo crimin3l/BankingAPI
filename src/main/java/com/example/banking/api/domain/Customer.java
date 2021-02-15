@@ -6,12 +6,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
 @ToString
 @EqualsAndHashCode
 @Entity
+@Table(name = "CUSTOMER")
 public class Customer {
 
     @Id
@@ -24,6 +26,6 @@ public class Customer {
 
     // Empty constructor for JSON/JPA
     public Customer() {
-        this("", "");
-    }
+    this("", "");
+}
 }

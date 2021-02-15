@@ -6,6 +6,7 @@ import com.example.banking.api.repository.AccountRepository;
 import com.example.banking.api.repository.CustomerRepository;
 import com.example.banking.api.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,13 +23,25 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     public AccountServiceImpl(
             final CustomerRepository customerRepo,
-            final AccountRepository accountRepo) {
+            final AccountRepository accountRepo,
+            final TransactionRepository transactionRepo) {
         this.customerRepo = customerRepo;
         this.accountRepo = accountRepo;
+        this.transactionRepo = transactionRepo;
     }
 
     @Override
-    public Account createNewAccoutWithInitialCredit(final Long customerId, final double initialCredit) {
+    public Account getAccountById(final Long accountId) {
+        Optional<Account> accountOpt = accountRepo.findById(accountId);
+        Account account = null;
+        if (accountOpt.isPresent()) {
+            account = accountOpt.get();
+        }
+        return account;
+    }
+
+    @Override
+    public Account createNewAccountWithInitialCredit(final Long customerId, final double initialCredit) {
         Optional<Customer> customerOpt = customerRepo.findById(customerId);
         Customer customer = null;
         if (customerOpt.isPresent()) {
@@ -38,7 +51,13 @@ public class AccountServiceImpl implements AccountService {
             accountRepo.save(newAccount);
             log.info("Account created: {}", newAccount);
 
+            if(initialCredit != 0) {
+                Transaction newTransaction = new Transaction(customerId, newAccount);
+                transactionRepo.save(newTransaction);
+            }
+
             return newAccount;
+
         } else {
             log.info("Creating account failed due to non existent customerID");
             return null;
@@ -46,7 +65,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account createNewAccout(final Long customerId) {
+    public Account createNewAccount(final Long customerId) {
         Optional<Customer> customerOpt = customerRepo.findById(customerId);
         Customer customer = null;
         if (customerOpt.isPresent()) {
@@ -62,7 +81,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deleteAcountById(final Long accountID) {
+    public void deleteAccountById(final Long accountID) {
         Optional<Account> accountOpt = accountRepo.findById(accountID);
         if (accountOpt.isPresent()) {
             Account account = accountOpt.get();

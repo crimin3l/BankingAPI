@@ -12,6 +12,7 @@ import javax.persistence.*;
 @ToString
 @EqualsAndHashCode
 @Entity
+@Table(name = "ACCOUNT")
 public class Account {
 
     @Id

@@ -6,4 +6,5 @@ public interface CustomerService {
     public Customer createNewCustomer(final String name, final String surname);
     public void deleteCustomerById(final Long customerId);
     public void deleteCustomerByNameAmdSurname(final String name, final String surname);
+    public Customer getCustomerById(final Long customerId);
 }

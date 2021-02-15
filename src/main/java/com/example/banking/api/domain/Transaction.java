@@ -11,6 +11,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Entity
+@Table(name = "TRANSACTION")
 public class Transaction {
 
     @Id
