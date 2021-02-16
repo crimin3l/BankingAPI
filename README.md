@@ -33,10 +33,24 @@ Ex: Get verb to localhost:8080/api/v1/statement/getStatementByCustomerId?custome
    }
    will output based on the CustomerId taken as input, the name, surname, accounts and total balance of the accounts.
    Endpoint will output http status code 200 (OK) if the customer is existent and code 204 (No Content) if the customer id is non-existent.
-
+Alternatively, the swagger ui exposed at http://localhost:8080/swagger-ui.html can also be used for executing requests on the API endpoints
 (Prefix all Postman calls with Host and port. Default Host is localhost, default port is 8080.)
 run tests:
 mvn clean test
 
 run spring boot project:
 mvn install && mvn spring-boot:run
+
+util endpoints:
+actuator health: http://localhost:8080/actuator/health
+actuator info: http://localhost:8080/actuator/info
+API docs v2: http://localhost:8080/v2/api-docs
+API docs v3: http://localhost:8080/v3/api-docs
+
+http://localhost:8080/swagger-ui.html
+
+For testing purposes, database is H2 in memory
+H2 console: http://localhost:8080/h2-console/login.do
+User: sa
+Password: password
+

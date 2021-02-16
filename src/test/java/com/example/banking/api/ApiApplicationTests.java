@@ -11,3 +11,6 @@ class ApiApplicationTests {
     }
 
 }
+
+//TODO: Finish documentation for Swagger Ui exposed at
+//TODO: Finish test classes
