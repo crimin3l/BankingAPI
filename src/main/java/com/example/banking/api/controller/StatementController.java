@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/statement")
 public class StatementController {
@@ -22,8 +24,10 @@ public class StatementController {
     }
 
     @GetMapping("/getStatementByCustomerId")
-    ResponseEntity<Statement> getStatementByCustomerId(@RequestParam("customerId") Long customerId) {
-        return ResponseEntity.ok(statementService.getStatementByCustomerId(customerId));
+    ResponseEntity<?> getStatementByCustomerId(@RequestParam("customerId") Long customerId) {
+        Statement statement = statementService.getStatementByCustomerId(customerId);
+        return statement != null ?
+                new ResponseEntity<>(statement, HttpStatus.OK) : new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
 }
